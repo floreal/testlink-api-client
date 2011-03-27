@@ -1,9 +1,9 @@
-require "command/parameter"
+require "command/argument"
 
-describe TestLink::Command::Parameter do
+describe TestLink::Command::Argument do
 
   before :each do
-    @parameter =  TestLink::Command::Parameter.new :my_param
+    @parameter =  TestLink::Command::Argument.new :my_param
   end
 
   it 'has a name' do
