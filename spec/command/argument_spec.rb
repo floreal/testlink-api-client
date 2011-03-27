@@ -3,30 +3,30 @@ require "command/argument"
 describe TestLink::Command::Argument do
 
   before :each do
-    @parameter =  TestLink::Command::Argument.new :my_param
+    @argument =  TestLink::Command::Argument.new :my_param
   end
 
   it 'has a name' do
-    @parameter.should respond_to :name
+    @argument.should respond_to :name
   end
 
   it 'has a default value' do
-    @parameter.should respond_to :default
+    @argument.should respond_to :default
   end
 
   it 'may be mandatory' do
-    @parameter.should respond_to :mandatory?
+    @argument.should respond_to :mandatory?
   end
 
   describe 'default state' do
     describe 'default value' do
       it 'is nil' do
-        @parameter.default.should be_nil
+        @argument.default.should be_nil
       end
     end
 
     it 'is not mandatory' do
-      @parameter.mandatory?.should be_false
+      @argument.mandatory?.should be_false
     end
   end
 end
