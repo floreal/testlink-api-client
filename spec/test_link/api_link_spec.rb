@@ -1,4 +1,4 @@
-require 'api_link'
+require 'test_link/api_link'
 
 describe TestLink::ApiLink do
   before :each do

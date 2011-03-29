@@ -1,10 +1,9 @@
 module TestLink
   module Command
     class Argument
-      attr_reader :name, :default
+      attr_reader :default
 
-      def initialize(name, default = nil, mandatory = false)
-        @name = name
+      def initialize(default = nil, mandatory = false)
         @default = default
         @mandatory = mandatory
       end

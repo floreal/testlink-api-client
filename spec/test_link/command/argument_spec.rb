@@ -1,13 +1,9 @@
-require "command/argument"
+require 'test_link/command/argument'
 
 describe TestLink::Command::Argument do
 
   before :each do
-    @argument =  TestLink::Command::Argument.new :my_param
-  end
-
-  it 'has a name' do
-    @argument.should respond_to :name
+    @argument =  TestLink::Command::Argument.new
   end
 
   it 'has a default value' do
