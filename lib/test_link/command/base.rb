@@ -18,7 +18,7 @@ require 'test_link/command/definition'
 module TestLink
   module Command
     class Base < Definition
-      argument :dev_key, :mandatory => true
+      argument :devKey, :mandatory => true
     end
   end
 end

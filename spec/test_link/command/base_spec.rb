@@ -27,9 +27,9 @@ describe TestLink::Command::Base do
 
     it 'has dev_key mandatory argument' do
       @command = TestLink::Command::Base.new
-      TestLink::Command::Base.arguments[:dev_key].mandatory?.should be_true
-      @command.should respond_to :dev_key
-      @command.should respond_to :dev_key=
+      TestLink::Command::Base.arguments[:devKey].mandatory?.should be_true
+      @command.should respond_to :devKey
+      @command.should respond_to :devKey=
     end
   end
 
