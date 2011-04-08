@@ -13,8 +13,8 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'command/argument'
-require 'command/base'
+require 'test_link/command/argument'
+require 'test_link/command/base'
 
 module TestLink
   module Command
