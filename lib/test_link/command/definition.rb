@@ -37,7 +37,7 @@ module TestLink
       def self.command_name
         classname = self.name.split('::').last
         classname[0] = classname[0].downcase
-        classname
+        'tl.'+classname
       end
     end
   end

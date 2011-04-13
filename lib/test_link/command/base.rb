@@ -19,6 +19,19 @@ module TestLink
   module Command
     class Base < Definition
       argument :devKey, :mandatory => true
+
+      def execute link
+        self.devKey ||= link.key
+        link.client.call self.class.command_name, arguments_hash
+      end
+
+      def arguments_hash
+        args = {}
+        self.class.arguments.keys.each do |name|
+          args[name] = self.send(name)
+        end
+        args
+      end
     end
   end
 end

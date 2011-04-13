@@ -13,11 +13,9 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/command/argument'
-require 'test_link/command/base'
-require 'test_link/command/get_projects'
-
-module TestLink
-  module Command
+RSpec::Matchers.define :provide do |attribute|
+  match do |object|
+    assignment = (attribute.to_s + '=').to_sym
+    (object.respond_to? attribute) && (object.respond_to? assignment)
   end
 end

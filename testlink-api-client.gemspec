@@ -30,4 +30,6 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = ["LICENSE", "README.markdown"]
 
   spec.add_development_dependency('rspec')
+  spec.add_development_dependency('autotest-growl')
+  spec.add_development_dependency('autotest')
 end

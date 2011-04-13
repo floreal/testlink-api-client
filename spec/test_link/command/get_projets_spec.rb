@@ -13,11 +13,14 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/command/argument'
-require 'test_link/command/base'
-require 'test_link/command/get_projects'
+require "test_link/command/get_projects"
 
-module TestLink
-  module Command
+describe TestLink::Command::GetProjects do
+  before :each do
+    @get_projects = TestLink::Command::GetProjects.new
+  end
+
+  it "is a command" do
+    (TestLink::Command::GetProjects < TestLink::Command::Base).should be_true
   end
 end

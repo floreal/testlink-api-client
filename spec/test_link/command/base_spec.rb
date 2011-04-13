@@ -14,8 +14,13 @@
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 require "test_link/command/base"
+require "test_link/api_link"
 
 describe TestLink::Command::Base do
+  before :each do
+    @command = TestLink::Command::Base.new
+  end
+
   describe 'Arguments' do
     it 'can be defined' do
       TestLink::Command::Base.should respond_to :argument
@@ -26,16 +31,39 @@ describe TestLink::Command::Base do
     end
 
     it 'has dev_key mandatory argument' do
-      @command = TestLink::Command::Base.new
       TestLink::Command::Base.arguments[:devKey].mandatory?.should be_true
-      @command.should respond_to :devKey
-      @command.should respond_to :devKey=
+      @command.should provide :devKey
     end
   end
 
   describe 'Classname' do
     it 'helps to retrieve remote command name the first letter becomes lower case' do
-      TestLink::Command::Base.command_name.should == 'base'
+      TestLink::Command::Base.command_name.should == 'tl.base'
+    end
+  end
+
+  describe 'Execution' do
+    before :each do
+      @key = '___dev-key___'
+      @link = TestLink::ApiLink.new 'http://qa.example.com/', @key
+      @link.client.stub!(:call)
+    end
+
+    it 'calls a remote method' do
+      @link.client.should_receive(:call).with('tl.base', :devKey => @key)
+      @command.execute @link
+    end
+
+    it 'sets a default developer key given by the link' do
+      @command.execute @link
+      @command.devKey.should == @key
+    end
+
+    it 'overrides the link\'s key if it is defined' do
+      key = '___other-dev-key___'
+      @command.devKey = key
+      @command.execute @link
+      @command.devKey.should == key
     end
   end
 end

@@ -1,0 +1,1 @@
+default: --require ./spec/spec_helper.rb --colour
