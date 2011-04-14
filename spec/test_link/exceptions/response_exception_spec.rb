@@ -13,13 +13,18 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/objects/methods'
+require "test_link/exceptions/error_response_exception"
 
-module TestLink
-  module Objects
-    class Project
-      include Methods
-      attr_accessor :id, :name, :prefix, :notes
-    end
+describe TestLink::Exceptions::ErrorResponseException do
+  before :each do
+    @exception = TestLink::Exceptions::ErrorResponseException.new 123, '___message___'
+  end
+
+  it "has a code" do
+    @exception.should provide :code
+  end
+
+  it "has a message" do
+    @exception.should respond_to :message
   end
 end

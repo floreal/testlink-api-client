@@ -14,6 +14,7 @@
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'test_link/api_link'
+require 'test_link/command/base'
 
 describe TestLink::ApiLink do
   before :each do
@@ -36,5 +37,54 @@ describe TestLink::ApiLink do
 
   it 'holds a XMLRPC client' do
     @link.client.should be_an_instance_of XMLRPC::Client
+  end
+
+  it 'allows to add remote methods' do
+    TestLink::ApiLink.should respond_to :remote_method
+  end
+
+  describe 'Adding remote method support' do
+    before :all do
+      class TestLink::ApiLink
+        def self.remote_methods
+          @@remote_methods
+        end
+      end
+
+      class Foo < TestLink::Command::Base
+        def command_name
+          'foo'
+        end
+
+        def execute link
+          [{}]
+        end
+      end
+
+      TestLink::ApiLink.remote_method Foo
+    end
+
+    it 'finds out the name of the method with class command_name method' do
+      link = TestLink::ApiLink.new('http://qa.example.com/', '')
+      link.should respond_to :foo
+    end
+
+    it 'registers a new class instance with the command symbol' do
+      TestLink::ApiLink.remote_methods[:foo].should be_an_instance_of Foo
+    end
+
+    describe 'Remote method execution' do
+      before :each do
+        @link = TestLink::ApiLink.new('http://qa.example.com/', '___dev_key___')
+      end
+
+      it 'calls the registered command class execute method with parameters' do
+        args = {:foo => 'bar', :baz => 42}
+        foo = TestLink::ApiLink.remote_methods[:foo]
+        foo.should_receive(:execute).with(@link)
+        foo.should_receive(:reset_arguments_hash).with(args)
+        @link.foo args
+      end
+    end
   end
 end

@@ -13,13 +13,20 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/objects/methods'
+require 'test_link/adapters/base'
+require 'test_link/objects/project'
 
 module TestLink
-  module Objects
-    class Project
-      include Methods
-      attr_accessor :id, :name, :prefix, :notes
+  module Adapters
+    class ProjectAdapter < Base
+      def adapt_row row
+        project = Objects::Project.new
+        project.id = row['id'].to_i
+        project.name = row['name']
+        project.prefix = row['prefix']
+        project.notes = row['notes']
+        project
+      end
     end
   end
 end

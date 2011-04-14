@@ -33,7 +33,7 @@ describe TestLink::Objects::Project do
     @project.should provide :name
   end
 
-  it "has a description" do
-    @project.should provide :description
+  it "has notes" do
+    @project.should provide :notes
   end
 end

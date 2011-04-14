@@ -13,13 +13,13 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/objects/methods'
 
 module TestLink
   module Objects
-    class Project
-      include Methods
-      attr_accessor :id, :name, :prefix, :notes
+    module Methods
+      def == other
+        self.instance_variables.each { |prop| return false if self.instance_variable_get(prop) != other.instance_variable_get(prop) }
+      end
     end
   end
 end

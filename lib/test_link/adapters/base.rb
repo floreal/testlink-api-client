@@ -13,13 +13,20 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/objects/methods'
+require 'test_link/exceptions/error_response_exception'
 
 module TestLink
-  module Objects
-    class Project
-      include Methods
-      attr_accessor :id, :name, :prefix, :notes
+  module Adapters
+    class Base
+      attr_accessor :response
+
+      def adapt
+        raise TestLink::Exceptions::EmptyResponseException.new if response.nil? || response.empty?
+        response.map do |row|
+          raise TestLink::Exceptions::ErrorResponseException.new row['message'], row['code'] if row.keys.include? 'code'
+          adapt_row row
+        end
+      end
     end
   end
 end

@@ -13,6 +13,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'test_link/objects/methods'
 require 'test_link/objects/project'
 
 module TestLink

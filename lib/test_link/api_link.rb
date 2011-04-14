@@ -19,15 +19,33 @@ module TestLink
   class ApiLink
     attr_accessor :url, :key
     attr_reader :client
+    @@remote_methods = {}
 
-    def initialize url, key
+    def initialize(url, key)
       @url = url
       @key = key
       @client = XMLRPC::Client.new2 self.api_url
     end
 
-    def api_url
+    def api_url()
       @url + '/lib/api/xmlrpc.php'
+    end
+
+    def self.remote_method(klass)
+      method_name = klass.command_name.to_sym
+      @@remote_methods[method_name] = klass.new
+    end
+
+    def respond_to_missing?(symbol, include_private)
+      return true if @@remote_methods.include? symbol
+      super symbol, include_private
+    end
+
+    def method_missing(symbol, *args)
+      command = @@remote_methods[symbol]
+      super(symbol, args) if command.nil?
+      command.reset_arguments_hash args.first
+      command.execute self
     end
   end
 end
