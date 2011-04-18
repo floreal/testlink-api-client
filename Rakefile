@@ -13,14 +13,23 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'rubygems'
 require 'rake'
 require 'rspec/core/rake_task'
 require 'rake/gempackagetask'
-require 'rubygems'
+require 'rake/clean'
 
+require 'cucumber'
+require 'cucumber/rake/task'
+
+CLOBBER.add('reports')
 
 gemspecs = Gem::Specification.load('testlink-api-client.gemspec')
 
 Rake::GemPackageTask.new(gemspecs) { |pkg| }
 
 RSpec::Core::RakeTask.new(:spec)
+
+Cucumber::Rake::Task.new(:features) do |t|
+  t.cucumber_opts = ENV['CUKE_FLAGS'] || '--format pretty'
+end

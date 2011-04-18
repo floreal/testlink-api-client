@@ -1,0 +1,14 @@
+== TestLink API Client
+
+This gem provides a endpoint for TestLink Remote API
+
+== How to use it
+
+To use this library you just need to require the gem:
+ require 'testlink-api-client'
+
+== Example
+ require 'testlink-api-client'
+
+ tl = TestLink::ApiLink.new 'http://qa.example.com/', 'f2a479d583cdd97c1434bba69a88e4d8'
+ tl.getProjects #Will return an Array of TestLink::Objects::Project

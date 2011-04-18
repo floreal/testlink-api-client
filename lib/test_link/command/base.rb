@@ -14,6 +14,7 @@
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'test_link/command/definition'
+require 'test_link/api_link'
 
 module TestLink
   module Command
@@ -22,7 +23,9 @@ module TestLink
 
       def execute link
         self.devKey ||= link.key
-        link.client.call self.class.command_name, arguments_hash
+        errors = check_arguments
+        raise ArgumentError.new "Missing mandatory argument(s) #{errors}" unless errors.empty?
+        link.client.call 'tl.' + self.class.command_name, arguments_hash
       end
 
       def arguments_hash
@@ -31,6 +34,29 @@ module TestLink
           args[name] = self.send(name)
         end
         args
+      end
+
+      def reset_arguments_hash hash
+        arguments_hash.keys.each do |name|
+          assignment = (name.to_s + '=').to_sym
+          send(assignment, hash[name])
+        end
+      end
+
+      def check_arguments
+        errors = []
+        self.class.arguments.select{ |name, argument| argument.mandatory? }.keys.each do |name|
+          errors.push name if arguments_hash[name].nil?
+        end
+        errors
+      end
+
+      def self.remote_method
+        TestLink::ApiLink.remote_method self
+      end
+
+      def self.adapt_with klass
+        TestLink::ApiLink.set_adapter_for self.command_name, klass
       end
     end
   end

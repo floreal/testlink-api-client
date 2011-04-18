@@ -38,7 +38,7 @@ describe TestLink::Command::Base do
 
   describe 'Classname' do
     it 'helps to retrieve remote command name the first letter becomes lower case' do
-      TestLink::Command::Base.command_name.should == 'tl.base'
+      TestLink::Command::Base.command_name.should == 'base'
     end
   end
 
@@ -57,6 +57,7 @@ describe TestLink::Command::Base do
     it 'sets a default developer key given by the link' do
       @command.execute @link
       @command.devKey.should == @key
+      @command.arguments_hash[:devKey].should == @key
     end
 
     it 'overrides the link\'s key if it is defined' do
@@ -64,6 +65,30 @@ describe TestLink::Command::Base do
       @command.devKey = key
       @command.execute @link
       @command.devKey.should == key
+      @command.arguments_hash[:devKey].should == key
     end
+
+    it 'raise an ArgumentError when a mandatory is not set' do
+      @link.key = nil
+      expect { @command.execute @link }.to raise_exception ArgumentError, 'Missing mandatory argument(s) [:devKey]'
+    end
+  end
+
+  it 'allows to reset arguments to defined values' do
+    @command.reset_arguments_hash :devKey => (key = 'my_dev_key')
+    @command.devKey.should == key
+    @command.arguments_hash[:devKey].should == key
+  end
+
+  it 'checks whether command can be executed' do
+    TestLink::Command::Base.new.check_arguments.should == [:devKey]
+  end
+
+  it 'can add itself to TestLink::ApiLink' do
+    TestLink::Command::Base.should respond_to :remote_method
+  end
+
+  it 'defines it\'s adapter' do
+    TestLink::Command::Base.should respond_to :adapt_with
   end
 end

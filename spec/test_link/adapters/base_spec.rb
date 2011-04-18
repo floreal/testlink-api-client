@@ -27,7 +27,7 @@ describe TestLink::Adapters::Base do
   end
 
   it "raises an exception when an error code is detected in the response" do
-    @adapter.response = [{"code"=>2000, "message"=>"Can not authenticate client: invalid developer key"}]
+    @adapter.response = [{"code"=> 2000, "message"=>"Can not authenticate client: invalid developer key"}]
     expect { @adapter.adapt }.to raise_exception TestLink::Exceptions::ErrorResponseException, "Can not authenticate client: invalid developer key"
   end
 
@@ -41,7 +41,7 @@ describe TestLink::Adapters::Base do
     expect { @adapter.adapt }.to raise_exception TestLink::Exceptions::EmptyResponseException, "Response is empty"
   end
 
-  it 'calls adapt_row and raise' do
+  it 'calls adapt_row' do
     def @adapter.adapt_row row
     end
     @adapter.response = [{'name' => 'a'}, {'name' => 'b'}]

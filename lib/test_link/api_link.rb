@@ -17,10 +17,10 @@ require 'xmlrpc/client'
 
 module TestLink
   class ApiLink
-    attr_accessor :url, :key
-    attr_reader :client
+    attr_accessor :key
+    attr_reader :client, :url
     @@remote_methods = {}
-
+    @@adapters = {}
     def initialize(url, key)
       @url = url
       @key = key
@@ -43,9 +43,20 @@ module TestLink
 
     def method_missing(symbol, *args)
       command = @@remote_methods[symbol]
-      super(symbol, args) if command.nil?
-      command.reset_arguments_hash args.first
-      command.execute self
+      adapter = @@adapters[symbol]
+      return super(symbol, args) if command.nil?
+      command_args = args.first || {}
+      command.reset_arguments_hash command_args
+      adapter.response = command.execute self
+      adapter.adapt
+    end
+
+    def self.set_adapter_for command_name, klass
+      @@adapters[command_name.to_sym] = klass.new
+    end
+
+    def self.adapter_for(command_name)
+      @@adapters[command_name.to_sym]
     end
   end
 end

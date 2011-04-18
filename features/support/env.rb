@@ -13,25 +13,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require "test_link/command/get_projects"
-require "test_link/adapters/project_adapter"
+$:.unshift File.dirname(__FILE__)+'/../../lib'
 
-describe TestLink::Command::GetProjects do
-  before :each do
-    @get_projects = TestLink::Command::GetProjects.new
-  end
-
-  it "is a command" do
-    (TestLink::Command::GetProjects < TestLink::Command::Base).should be_true
-  end
-
-  it "adds a getProjects method to TestLink::ApiLink" do
-    TestLink::ApiLink.new('http://qa.example.com/', '').should respond_to :getProjects
-  end
-
-  describe 'adapter' do
-    it 'is a TestLink::Adapters::ProjectAdapter' do
-      TestLink::ApiLink.adapter_for(TestLink::Command::GetProjects.command_name).should be_an_instance_of  TestLink::Adapters::ProjectAdapter
-    end
-  end
-end
+require 'testlink-api-client'
+require 'cucumber/rspec/doubles'

@@ -19,7 +19,7 @@ require 'test_link/command/base'
 describe TestLink::ApiLink do
   before :each do
     @url = 'http://qa.example.com'
-    @key = 'f2a979d533cdd9761434bba60a88e4d8'
+    @key = '__dev_key__'
     @link = TestLink::ApiLink.new @url, @key
   end
 
@@ -43,6 +43,10 @@ describe TestLink::ApiLink do
     TestLink::ApiLink.should respond_to :remote_method
   end
 
+  it 'allows to define an adapter for each remote method' do
+    TestLink::ApiLink.should respond_to :set_adapter_for
+  end
+
   describe 'Adding remote method support' do
     before :all do
       class TestLink::ApiLink
@@ -51,7 +55,15 @@ describe TestLink::ApiLink do
         end
       end
 
+      class FooAdapter
+        attr_accessor :response
+        def adapt
+        end
+      end
+
       class Foo < TestLink::Command::Base
+        adapt_with FooAdapter
+
         def command_name
           'foo'
         end
@@ -73,7 +85,7 @@ describe TestLink::ApiLink do
       TestLink::ApiLink.remote_methods[:foo].should be_an_instance_of Foo
     end
 
-    describe 'Remote method execution' do
+    describe 'execution' do
       before :each do
         @link = TestLink::ApiLink.new('http://qa.example.com/', '___dev_key___')
       end
@@ -84,6 +96,10 @@ describe TestLink::ApiLink do
         foo.should_receive(:execute).with(@link)
         foo.should_receive(:reset_arguments_hash).with(args)
         @link.foo args
+      end
+
+      it 'uses the command specified adapter' do
+        TestLink::ApiLink.adapter_for(Foo.command_name.to_sym).should be_an_instance_of FooAdapter
       end
     end
   end
