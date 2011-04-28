@@ -13,8 +13,8 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-Given /^a TestLink Api link$/ do
-  @tl = TestLink::ApiLink.new 'http://qa.example.com/', ''
+Given /^a TestLink Api link for "([^"]*)" with devKey "([^"]*)"$/ do |url, key|
+  @tl = TestLink::ApiLink.new url, key
 end
 
 Given /^a remote api containing those projects:$/ do |table|
@@ -36,7 +36,7 @@ Given /^a remote api containing those projects:$/ do |table|
   end
 end
 
-When /^remote call returns a for getProjects returns remote data previously set$/ do
+When /^remote call for getProjects returns remote data previously set$/ do
   @tl.client.stub!(:call).with("tl.getProjects", :devKey => '').and_return(@remote_data)
 end
 
@@ -57,6 +57,6 @@ Then /^I get this Project list:$/ do |table|
   }
 end
 
-Then /^An response error exception ins raised$/ do
+Then /^An response error exception is raised$/ do
   expect {@tl.getProjects}.to raise_exception(TestLink::Exceptions::ErrorResponseException, @message)
 end
