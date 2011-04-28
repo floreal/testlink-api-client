@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.homepage = 'http://github.com/floreal/testlink-api-client/'
 
   spec.files = Dir['lib/**/*.rb']
-  spec.test_files = Dir['spec/**/*spec*.rb'] + Dir['features/**']
+  spec.test_files = Dir['spec/**/*spec*.rb'] + Dir['features/**/*']
   spec.extra_rdoc_files = ["LICENSE", "README.rdoc"]
 
   spec.add_development_dependency('rspec')

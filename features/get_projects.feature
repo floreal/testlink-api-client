@@ -4,18 +4,28 @@ Feature: Getting projects list
   I want to get a my projects list
 
 Scenario: Remote API returns projects list
-  Given a TestLink Api link
+  Given a TestLink Api link for "http://qa.example.com" with devKey ""        
     And a remote api containing those projects:
     | id |  name  | prefix | notes                    |
     | 1  | First  | FST    | <p>One first project</p> |
     | 2  | Second | SCD    | <p>A second project</p>  |
-  When remote call returns a for getProjects returns remote data previously set
+  When remote call for getProjects returns remote data previously set
   Then I get this Project list:
     | id |  name  | prefix | notes                    |
     | 1  | First  | FST    | <p>One first project</p> |
     | 2  | Second | SCD    | <p>A second project</p>  |
 
 Scenario: Remote API raises an Error
-  Given a TestLink Api link
+  Given a TestLink Api link for "http://qa.example.com" with devKey ""
   When remote call returns an error 2000: "Can not authenticate client: invalid developer key"
-  Then An response error exception ins raised
+  Then An response error exception is raised
+  
+Scenario: Getting project list from a real TestLink instance
+  Given a TestLink Api link for "http://qa.localhost" with devKey "720aba7a9dad75eeb87ce253c08f6be5"
+  Then I get this Project list:
+    | id | name           | prefix | notes                              |
+    | 1  | Sample Project | SP     | <p>Project for test automation</p> |
+
+Scenario: Attempting to get project list from a real TestLink instance with a bas key
+  Given a TestLink Api link for "http://qa.localhost" with devKey "__bad_key__"
+  Then An response error exception is raised
