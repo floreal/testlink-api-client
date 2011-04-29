@@ -14,7 +14,8 @@
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 Given /^a TestLink Api link for "([^"]*)" with devKey "([^"]*)"$/ do |url, key|
-  @tl = TestLink::ApiLink.new url, key
+  @key = key
+  @tl = TestLink::ApiLink.new url, @key
 end
 
 Given /^a remote api containing those projects:$/ do |table|
@@ -37,7 +38,7 @@ Given /^a remote api containing those projects:$/ do |table|
 end
 
 When /^remote call for getProjects returns remote data previously set$/ do
-  @tl.client.stub!(:call).with("tl.getProjects", :devKey => '').and_return(@remote_data)
+  @tl.client.stub!(:call).with("tl.getProjects", :devKey => @key).and_return(@remote_data)
 end
 
 When /^remote call returns an error (\d+?): "(.+?)"$/ do |code, message|

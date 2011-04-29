@@ -30,7 +30,7 @@ module TestLink
 
       def arguments_hash
         args = {}
-        self.class.arguments.keys.each do |name|
+        (Base.arguments.keys + self.class.arguments.keys).each do |name|
           args[name] = self.send(name)
         end
         args
