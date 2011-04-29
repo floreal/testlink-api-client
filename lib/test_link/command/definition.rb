@@ -27,11 +27,12 @@ module TestLink
         }.merge(options)
         name = name.intern
         attr_accessor name
-        @@arguments[name] = Argument.new options[:default], options[:mandatory]
+        self.arguments[name] = Argument.new options[:default], options[:mandatory]
       end
 
       def self.arguments
-        @@arguments
+        @@arguments[self.command_name] = {} if @@arguments[self.command_name].nil?
+        @@arguments[self.command_name]
       end
 
       def self.command_name
