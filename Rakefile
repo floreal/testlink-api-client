@@ -22,6 +22,8 @@ require 'rake/clean'
 require 'cucumber'
 require 'cucumber/rake/task'
 
+require File.join(File.dirname(__FILE__), 'features', 'support', 'test_link_db.rb')
+
 CLOBBER.add('reports')
 
 gemspecs = Gem::Specification.load('testlink-api-client.gemspec')
@@ -36,10 +38,12 @@ end
 
 desc "Prepare database for tests"
 task :prepare do |t|
-  abort('MYSQL_USER environment variable should be set') if ENV['MYSQL_USER'].nil?
-  abort('MYSQL_DB environment variable should be set') if ENV['MYSQL_DB'].nil?
-  mysql_passwd = ENV['MYSQL_PASSWD']
-  `mysql -u #{ENV['MYSQL_USER']} #{("-p " + mysql_passwd) unless mysql_passwd.nil?} #{ENV['MYSQL_DB']} < features/support/db/testlink.sql`
+  begin
+    include TestLinkDb
+    reset_db
+  rescure msg
+    abort msg
+  end
 end
 
 task :features => [:prepare]

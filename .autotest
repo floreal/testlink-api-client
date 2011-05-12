@@ -1,5 +1,6 @@
 require "autotest/growl"
 require "autotest/rspec2"
+require File.join(File.dirname(__FILE__), 'features', 'support', 'test_link_db.rb')
 
 Autotest::Growl::show_modified_files = false
 Autotest::Growl::one_notification_per_run = true
@@ -11,5 +12,11 @@ Autotest.add_hook(:initialize)  do |at|
   at.add_mapping(%r{^lib/.*\.rb$}) do |f, _|
     Dir['spec/**/*.rb']
   end
+  nil
+end
+
+Autotest.add_hook(:run_command) do |at|
+  include TestLinkDb
+  reset_db
   nil
 end
