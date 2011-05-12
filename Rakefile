@@ -38,12 +38,8 @@ end
 
 desc "Prepare database for tests"
 task :prepare do |t|
-  begin
-    include TestLinkDb
-    reset_db
-  rescure msg
-    abort msg
-  end
+  include TestLinkDb
+  reset_db
 end
 
 task :features => [:prepare]
