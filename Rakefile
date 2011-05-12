@@ -41,8 +41,8 @@ task :prepare do |t|
   begin
     include TestLinkDb
     reset_db
-  rescure msg
-    abort msg
+  rescure RuntimeError => e
+    abort e.message
   end
 end
 
