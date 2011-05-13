@@ -24,6 +24,8 @@ module TestLink
       argument :testprojectid, :mandatory => true
       argument :testsuitename, :mandatory => true
       argument :details, :mandatory => true
+      argument :checkduplicatedname
+      argument :actiononduplicatedname
 
       adapt_with TestLink::Adapters::StatusAdapter
     end

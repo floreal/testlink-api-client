@@ -32,20 +32,19 @@ end
 When /^I call "([^"]*)"$/ do |method|
   begin
     @result = @tl.send(method.to_sym, @parameters)
-  rescue NoMethodError => error
-    throw error
-  rescue Exception => error 
+  rescue TestLink::Exceptions::Exception => error
     @error = error
   end
 end
 
 Then /^A response error exception is raised with a message "([^"]*)"$/ do |message|
-  @error.should be_instance_of TestLink::Exceptions::ErrorResponseException
+  fail "Received a non error response \"#{@result}\" when expecting an error message: #{message}" if @error.nil?
+  @error.class.should < TestLink::Exceptions::Exception
   @error.message.should == message
 end
 
 Then /^I get status "([^"]*)" for "([^"]*)" with additionalInfo "([^"]*)" and message "([^"]*)"$/ do |status, operation, info, message|
-  fail "Received an error: #{@error} when expecting a success" unless @error.nil?
+  fail "Received an error \"#{@error}\" when expecting a success" unless @error.nil?
   @result.count.should == 1
   returned_status = @result.first
   returned_status.should be_instance_of TestLink::Objects::Status

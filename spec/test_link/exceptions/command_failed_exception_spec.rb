@@ -13,11 +13,16 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/exceptions/error_response_exception'
-require 'test_link/exceptions/command_failed_exception'
-require 'test_link/exceptions/empty_response_exception'
+require "test_link/exceptions/command_failed_exception"
 
-module TestLink
-  module Exceptions
+describe TestLink::Exceptions::CommandFailedException do
+  before :each do
+    @exception = TestLink::Exceptions::CommandFailedException.new "Foo message"
+  end
+
+  describe 'message' do
+    it 'should be "Empty response"' do
+      @exception.message.should == 'Command has failed: Foo message'
+    end
   end
 end

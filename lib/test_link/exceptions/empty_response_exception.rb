@@ -13,9 +13,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'test_link/exceptions/exception'
+
 module TestLink
   module Exceptions
-    class EmptyResponseException < ::Exception
+    class EmptyResponseException < Exception
       def initialize
         super 'Response is empty'
       end

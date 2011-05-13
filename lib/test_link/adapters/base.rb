@@ -13,6 +13,8 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'test_link/exceptions/empty_response_exception'
+require 'test_link/exceptions/command_failed_exception'
 require 'test_link/exceptions/error_response_exception'
 
 module TestLink
@@ -22,6 +24,7 @@ module TestLink
 
       def adapt
         raise TestLink::Exceptions::EmptyResponseException.new if response.nil? || response.empty?
+        raise TestLink::Exceptions::CommandFailedException.new response['msg'] if (response.instance_of? Hash) && (response['status_ok'] == 0)
         response.map do |row|
           raise TestLink::Exceptions::ErrorResponseException.new row['message'], row['code'] if row.keys.include? 'code'
           adapt_row row

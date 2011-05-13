@@ -48,4 +48,9 @@ describe TestLink::Adapters::Base do
     @adapter.response.each { |row| @adapter.should_receive(:adapt_row).with(row) }
     @adapter.adapt
   end
+
+  it 'recognises when a command failed' do
+    @adapter.response = {"status_ok" => 0, 'id' => 0, 'msg' => msg = 'Rorem ipsum erroor sit amet'}
+    expect { @adapter.adapt }.to raise_exception TestLink::Exceptions::CommandFailedException, "Command has failed: #{msg}"
+  end
 end

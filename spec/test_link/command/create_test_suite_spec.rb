@@ -35,17 +35,25 @@ describe TestLink::Command::CreateTestSuite do
     end
   end
 
-  describe 'argument' do
-    it 'testprojectid is mandatory' do
+  describe 'arguments' do
+    it 'contain mandatory testprojectid' do
       @create_test_suite.should provide_mandatory_argument :testprojectid
     end
 
-    it 'testsuitename is mandatory' do
+    it 'contain mandatory testsuitename' do
       @create_test_suite.should provide_mandatory_argument :testsuitename
     end
 
-    it 'details is mandatory' do
+    it 'contain mandatory details' do
       @create_test_suite.should provide_mandatory_argument :details
+    end
+
+    it 'contain checkduplicatedname' do
+      @create_test_suite.should provide_argument :checkduplicatedname
+    end
+
+    it 'contain actiononduplicatedname' do
+      @create_test_suite.should provide_argument :actiononduplicatedname
     end
   end
 end

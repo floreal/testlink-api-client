@@ -25,7 +25,7 @@ module TestLink
         self.devKey ||= link.key
         errors = check_arguments
         raise ArgumentError.new "Missing mandatory argument(s) #{errors}" unless errors.empty?
-        link.client.call 'tl.' + self.class.command_name, arguments_hash
+        link.client.call 'tl.' + self.class.command_name, arguments_hash.reject { |key, value| value.nil? }
       end
 
       def arguments_hash

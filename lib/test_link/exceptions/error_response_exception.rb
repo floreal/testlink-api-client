@@ -13,9 +13,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'test_link/exceptions/exception'
+
 module TestLink
   module Exceptions
-    class ErrorResponseException < ::Exception
+    class ErrorResponseException < Exception
       attr_accessor :code
       def initialize message, code
         super message

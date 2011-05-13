@@ -31,3 +31,9 @@ RSpec::Matchers.define :provide_mandatory_argument do |argument|
     (attribute_provided? command, argument) && command.class.arguments[argument].mandatory?
   end
 end
+
+RSpec::Matchers.define :provide_argument do |argument|
+  match do |command|
+    (attribute_provided? command, argument) && (command.class.arguments.has_key? argument)
+  end
+end

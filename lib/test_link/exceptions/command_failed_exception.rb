@@ -13,11 +13,14 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/exceptions/error_response_exception'
-require 'test_link/exceptions/command_failed_exception'
-require 'test_link/exceptions/empty_response_exception'
+require 'test_link/exceptions/exception'
 
 module TestLink
   module Exceptions
+    class CommandFailedException < Exception
+      def initialize message
+        super "Command has failed: #{message}"
+      end
+    end
   end
 end

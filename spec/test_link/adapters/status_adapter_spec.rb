@@ -38,8 +38,7 @@ describe TestLink::Adapters::StatusAdapter do
 
   it "should should adapt raw response to Status objects" do
     status = TestLink::Objects::Status.new
-    response = [
-        {
+    response = [{
         "id"=> (status.id = 2).to_s,
         "status" => status.status = true,
         "operation" => status.operation = "createTestSuite",
