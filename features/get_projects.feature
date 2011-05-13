@@ -10,6 +10,7 @@ Scenario: Remote API returns projects list
     | 1  | First  | FST    | <p>One first project</p> |
     | 2  | Second | SCD    | <p>A second project</p>  |
   When remote call for getProjects returns remote data previously set
+   And I call "getProjects"
   Then I get this Project list:
     | id |  name  | prefix | notes                    |
     | 1  | First  | FST    | <p>One first project</p> |
@@ -18,14 +19,18 @@ Scenario: Remote API returns projects list
 Scenario: Remote API raises an Error
   Given a TestLink Api link for "http://qa.example.com" with devKey ""
   When remote call returns an error 2000: "Can not authenticate client: invalid developer key"
-  Then An response error exception is raised
+   And I call "getProjects"
+  Then A response error exception is raised with a message "Can not authenticate client: invalid developer key"
   
 Scenario: Getting project list from a real TestLink instance
-  Given a TestLink Api link for "http://qa.localhost" with devKey "720aba7a9dad75eeb87ce253c08f6be5"
+  Given a fresh database
+   And a TestLink Api link for "http://qa.localhost" with devKey "720aba7a9dad75eeb87ce253c08f6be5"
+  When I call "getProjects"
   Then I get this Project list:
     | id | name           | prefix | notes                              |
     | 1  | Sample Project | SP     | <p>Project for test automation</p> |
 
 Scenario: Attempting to get project list from a real TestLink instance with a bas key
   Given a TestLink Api link for "http://qa.localhost" with devKey "__bad_key__"
-  Then An response error exception is raised
+  When I call "getProjects"
+  Then A response error exception is raised with a message "Can not authenticate client: invalid developer key"

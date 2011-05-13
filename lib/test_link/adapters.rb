@@ -14,6 +14,8 @@
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'test_link/adapters/base'
+require 'test_link/adapters/project_adapter'
+require 'test_link/adapters/status_adapter'
 
 module TestLink
   module Adapters

@@ -13,9 +13,21 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-RSpec::Matchers.define :provide do |attribute|
-  match do |object|
+module RSpec::Matchers
+  def attribute_provided? object, attribute
     assignment = (attribute.to_s + '=').to_sym
     (object.respond_to? attribute) && (object.respond_to? assignment)
+  end
+end
+
+RSpec::Matchers.define :provide do |attribute|
+  match do |object|
+    attribute_provided? object, attribute
+  end
+end
+
+RSpec::Matchers.define :provide_mandatory_argument do |argument|
+  match do |command|
+    (attribute_provided? command, argument) && command.class.arguments[argument].mandatory?
   end
 end

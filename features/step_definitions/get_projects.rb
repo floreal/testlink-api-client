@@ -13,11 +13,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-Given /^a TestLink Api link for "([^"]*)" with devKey "([^"]*)"$/ do |url, key|
-  @key = key
-  @tl = TestLink::ApiLink.new url, @key
-end
-
 Given /^a remote api containing those projects:$/ do |table|
   @remote_data = table.hashes.map do |row|
     {
@@ -48,7 +43,7 @@ When /^remote call returns an error (\d+?): "(.+?)"$/ do |code, message|
 end
 
 Then /^I get this Project list:$/ do |table|
-  @tl.getProjects.should == table.hashes.map { |row|
+  @result.should == table.hashes.map { |row|
     project = TestLink::Objects::Project.new
     project.id = row['id'].to_i
     project.notes = row['notes'].to_s
@@ -58,6 +53,4 @@ Then /^I get this Project list:$/ do |table|
   }
 end
 
-Then /^An response error exception is raised$/ do
-  expect {@tl.getProjects}.to raise_exception(TestLink::Exceptions::ErrorResponseException, @message)
-end
+

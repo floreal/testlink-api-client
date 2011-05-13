@@ -31,7 +31,7 @@ describe TestLink::Command::GetProjects do
 
   describe 'adapter' do
     it 'is a TestLink::Adapters::ProjectAdapter' do
-      TestLink::ApiLink.adapter_for(TestLink::Command::GetProjects.command_name).should be_an_instance_of  TestLink::Adapters::ProjectAdapter
+      TestLink::ApiLink.adapter_for(TestLink::Command::GetProjects.command_name).should be_instance_of  TestLink::Adapters::ProjectAdapter
     end
   end
 end

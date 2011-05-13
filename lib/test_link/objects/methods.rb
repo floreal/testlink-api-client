@@ -18,7 +18,11 @@ module TestLink
   module Objects
     module Methods
       def == other
-        self.instance_variables.each { |prop| return false if self.instance_variable_get(prop) != other.instance_variable_get(prop) }
+        return false unless (self.instance_variables.count == other.instance_variables.count)
+        diff = self.instance_variables.select { |prop|
+          self.instance_variable_get(prop) != other.instance_variable_get(prop)
+        }
+        diff.empty?
       end
     end
   end

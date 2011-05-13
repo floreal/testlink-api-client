@@ -13,33 +13,19 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-require 'rake'
-require 'rspec/core/rake_task'
-require 'rake/gempackagetask'
-require 'rake/clean'
+require 'test_link/command/base'
+require 'test_link/adapters/status_adapter'
 
-require 'cucumber'
-require 'cucumber/rake/task'
+module TestLink
+  module Command
+    class CreateTestSuite < Base
+      remote_method
 
-require File.join(File.dirname(__FILE__), 'features', 'support', 'test_link_test_module.rb')
+      argument :testprojectid, :mandatory => true
+      argument :testsuitename, :mandatory => true
+      argument :details, :mandatory => true
 
-CLOBBER.add('reports')
-
-gemspecs = Gem::Specification.load('testlink-api-client.gemspec')
-
-Rake::GemPackageTask.new(gemspecs) { |pkg| }
-
-RSpec::Core::RakeTask.new(:spec)
-
-Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = ENV['CUKE_FLAGS'] || '--format pretty'
+      adapt_with TestLink::Adapters::StatusAdapter
+    end
+  end
 end
-
-desc "Prepare database for tests"
-task :prepare do |t|
-  include TestLinkTestModule
-  reset_db
-end
-
-task :features => [:prepare]

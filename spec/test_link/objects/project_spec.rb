@@ -25,7 +25,7 @@ describe TestLink::Objects::Project do
     @project.should provide :id
   end
 
-  it "has an prefix" do
+  it "has a prefix" do
     @project.should provide :prefix
   end
 

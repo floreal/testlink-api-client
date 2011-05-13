@@ -14,7 +14,6 @@
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'test_link/command/base'
-require 'test_link/api_link'
 require 'test_link/adapters/project_adapter'
 
 module TestLink

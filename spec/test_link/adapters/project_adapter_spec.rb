@@ -15,7 +15,6 @@
 
 require "test_link/adapters/project_adapter"
 require "test_link/objects/project"
-require "test_link/exceptions/error_response_exception"
 
 describe TestLink::Adapters::ProjectAdapter do
   before :each do

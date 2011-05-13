@@ -1,6 +1,6 @@
 require "autotest/growl"
 require "autotest/rspec2"
-require File.join(File.dirname(__FILE__), 'features', 'support', 'test_link_db.rb')
+require File.join(File.dirname(__FILE__), 'features', 'support', 'test_link_test_module.rb')
 
 Autotest::Growl::show_modified_files = false
 Autotest::Growl::one_notification_per_run = true
@@ -16,7 +16,7 @@ Autotest.add_hook(:initialize)  do |at|
 end
 
 Autotest.add_hook(:run_command) do |at|
-  include TestLinkDb
+  include TestLinkTestModule
   reset_db
   nil
 end

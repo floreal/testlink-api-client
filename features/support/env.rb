@@ -17,12 +17,16 @@ $:.unshift File.dirname(__FILE__)+'/../../lib'
 
 require 'testlink-api-client'
 require 'cucumber/rspec/doubles'
-require File.join(File.dirname(__FILE__), 'test_link_db.rb')
+require File.join(File.dirname(__FILE__), 'test_link_test_module.rb')
 
 class TestLinkWorld
-  include TestLinkDb
+  include TestLinkTestModule
 end
 
 World do
   TestLinkWorld.new
+end
+
+Before do
+  @parameters = {}
 end

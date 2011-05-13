@@ -13,11 +13,21 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-module TestLinkDb  
-  def reset_db
-    fail('MYSQL_USER environment variable should be set') if ENV['MYSQL_USER'].nil?
-    fail('MYSQL_DB environment variable should be set') if ENV['MYSQL_DB'].nil?
-    mysql_passwd = ENV['MYSQL_PASSWD']
-    `mysql -u #{ENV['MYSQL_USER']} #{("-p " + mysql_passwd) unless mysql_passwd.nil?} #{ENV['MYSQL_DB']} < #{File.dirname(__FILE__)}/db/testlink.sql`
+require 'test_link/adapters/base'
+require 'test_link/objects/status'
+
+module TestLink
+  module Adapters
+    class StatusAdapter < Base
+      def adapt_row row
+        status = Objects::Status.new
+        status.id = row['id'].to_i
+        status.message = row['message']
+        status.status = row['status']
+        status.additional_info = row['additionalInfo']
+        status.operation = row['operation']
+        status
+      end
+    end
   end
 end

@@ -13,33 +13,31 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-require 'rake'
-require 'rspec/core/rake_task'
-require 'rake/gempackagetask'
-require 'rake/clean'
+require 'test_link/objects/status'
 
-require 'cucumber'
-require 'cucumber/rake/task'
+describe TestLink::Objects::Status do
 
-require File.join(File.dirname(__FILE__), 'features', 'support', 'test_link_test_module.rb')
+  before :each do
+    @status = TestLink::Objects::Status.new
+  end
 
-CLOBBER.add('reports')
+  it "has an id" do
+    @status.should provide :id
+  end
 
-gemspecs = Gem::Specification.load('testlink-api-client.gemspec')
+  it "has a status" do
+    @status.should provide :status
+  end
 
-Rake::GemPackageTask.new(gemspecs) { |pkg| }
+  it "has a message" do
+    @status.should provide :message
+  end
 
-RSpec::Core::RakeTask.new(:spec)
+  it "has an additional info" do
+    @status.should provide :additional_info
+  end
 
-Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = ENV['CUKE_FLAGS'] || '--format pretty'
+  it "refers to an operation" do
+    @status.should provide :operation
+  end
 end
-
-desc "Prepare database for tests"
-task :prepare do |t|
-  include TestLinkTestModule
-  reset_db
-end
-
-task :features => [:prepare]
