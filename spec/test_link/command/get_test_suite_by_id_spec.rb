@@ -13,27 +13,27 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/command/get_test_suites_for_test_suite'
+require 'test_link/command/get_test_suite_by_id'
 require 'test_link/adapters/node_adapter'
 
-describe TestLink::Command::GetTestSuitesForTestSuite do
+describe TestLink::Command::GetTestSuiteByID do
   it "is a command" do
-    TestLink::Command::GetTestSuitesForTestSuite.should < TestLink::Command::Base
+    TestLink::Command::GetTestSuiteByID.should < TestLink::Command::Base
   end
 
-  it "adds a getTestSuitesForTestSuite method to TestLink::ApiLink" do
-    TestLink::ApiLink.new('http://qa.example.com/', '').should respond_to :getTestSuitesForTestSuite
+  it "adds a getTestSuiteByID method to TestLink::ApiLink" do
+    TestLink::ApiLink.new('http://qa.example.com/', '').should respond_to :getTestSuiteByID
   end
 
   describe 'adapter' do
     it 'is a TestLink::Adapters::NodeAdapter' do
-      TestLink::ApiLink.adapter_for(TestLink::Command::GetTestSuitesForTestSuite.command_name).should be_instance_of  TestLink::Adapters::NodeAdapter
+      TestLink::ApiLink.adapter_for(TestLink::Command::GetTestSuiteByID.command_name).should be_instance_of  TestLink::Adapters::NodeAdapter
     end
   end
 
   describe 'arguments' do
     before :each do
-      @command = TestLink::Command::GetTestSuitesForTestSuite.new
+      @command = TestLink::Command::GetTestSuiteByID.new
     end
 
     it 'contain mandatory testsuiteid' do

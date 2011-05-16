@@ -13,16 +13,17 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/command/argument'
 require 'test_link/command/base'
-require 'test_link/command/definition'
-require 'test_link/command/get_projects'
-require 'test_link/command/create_test_suite'
-require 'test_link/command/get_first_level_test_suites_for_test_project'
-require 'test_link/command/get_test_suites_for_test_suite'
-require 'test_link/command/get_test_suite_by_id'
+require 'test_link/adapters/node_adapter'
 
 module TestLink
   module Command
+    class GetTestSuiteByID < Base
+      remote_method
+
+      argument :testsuiteid, :mandatory => true
+
+      adapt_with Adapters::NodeAdapter
+    end
   end
 end
