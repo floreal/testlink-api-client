@@ -4,7 +4,7 @@ Feature: Getting projects list
   I want to get a my projects list
 
 Scenario: Remote API returns projects list
-  Given a TestLink Api link for "http://qa.example.com" with devKey ""        
+  Given a TestLink Api link for "http://qa.example.com" with devKey ""
     And a remote api containing those projects:
     | id |  name  | prefix | notes                    |
     | 1  | First  | FST    | <p>One first project</p> |
@@ -34,3 +34,14 @@ Scenario: Attempting to get project list from a real TestLink instance with a ba
   Given a TestLink Api link for "http://qa.localhost" with devKey "__bad_key__"
   When I call "getProjects"
   Then A response error exception is raised with a message "Can not authenticate client: invalid developer key"
+
+Scenario: Developer key is overridden
+  Given a fresh database
+   And a TestLink Api link for "http://qa.localhost" with devKey "__bad_key__"
+  When I use these parameters:
+    | name   | value                            |
+    | devKey | 720aba7a9dad75eeb87ce253c08f6be5 |
+  When I call "getProjects"
+  Then I get this Project list:
+    | id | name           | prefix | notes                              |
+    | 1  | Sample Project | SP     | <p>Project for test automation</p> |

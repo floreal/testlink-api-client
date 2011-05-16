@@ -26,6 +26,8 @@ module TestLink
       argument :details, :mandatory => true
       argument :checkduplicatedname
       argument :actiononduplicatedname
+      argument :parentid
+      argument :order
 
       adapt_with TestLink::Adapters::StatusAdapter
     end

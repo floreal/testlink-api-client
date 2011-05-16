@@ -55,5 +55,13 @@ describe TestLink::Command::CreateTestSuite do
     it 'contain actiononduplicatedname' do
       @create_test_suite.should provide_argument :actiononduplicatedname
     end
+
+    it 'contain parentid' do
+      @create_test_suite.should provide_argument :parentid
+    end
+
+    it 'contain order' do
+      @create_test_suite.should provide_argument :order
+    end
   end
 end
