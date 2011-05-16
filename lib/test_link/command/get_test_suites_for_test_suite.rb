@@ -13,13 +13,17 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/objects/methods'
+require 'test_link/command/base'
+require 'test_link/adapters/node_adapter'
 
 module TestLink
-  module Objects
-    class Node
-      include Methods
-      attr_accessor :id, :parent_id, :type_id, :table, :order, :name, :details
+  module Command
+    class GetTestSuitesForTestSuite < Base
+      remote_method
+
+      argument :testsuiteid, :mandatory => true
+
+      adapt_with Adapters::NodeAdapter
     end
   end
 end

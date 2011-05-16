@@ -42,4 +42,8 @@ describe TestLink::Objects::Node do
   it "has an order" do
     @test_suite.should provide :order
   end
+
+  it "has details" do
+    @test_suite.should provide :details
+  end
 end

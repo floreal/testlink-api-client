@@ -1,4 +1,4 @@
-Feature: Getting projects list
+Feature: Getting projects top testsuites
   In order to know my test projects
   As a QA engineer
   I want to get a my project test suites list

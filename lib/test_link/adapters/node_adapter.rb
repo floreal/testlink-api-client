@@ -19,14 +19,27 @@ require 'test_link/objects/node'
 module TestLink
   module Adapters
     class NodeAdapter < Base
+
+      def response= response
+        if response.instance_of? Hash
+          if response.has_key?('node_type_id')
+            response = [ response ]
+          elsif response.count > 1 && response.keys.reject { |key| key =~ /\A\d+?\z/ }.count == 0
+            response = response.values
+          end
+        end
+        super response
+      end
+
       def adapt_row row
         node = TestLink::Objects::Node.new
         node.id = row['id'].to_i
         node.parent_id = row['parent_id'].to_i
         node.type_id = row['node_type_id'].to_i
-        node.table = row['node_table']
+        node.table = row['node_table'] if row.has_key? 'node_table'
         node.order = row['node_order'].to_i
         node.name = row['name']
+        node.details = row['details'] if row.has_key? 'details'
         node
       end
     end

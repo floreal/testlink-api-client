@@ -57,12 +57,13 @@ end
 Then /^I get this node list:$/ do |table|
   @result.should == table.hashes.map { |row|
     node = TestLink::Objects::Node.new
-    node.id = row['id'].to_i
+    node.id = row['id'].to_i if
     node.parent_id = row['parent_id'].to_i
     node.type_id = row['type_id'].to_i
-    node.table = row['table'].to_s
+    node.table = row['table'].to_s if row.has_key? 'table'
     node.order = row['order'].to_i
     node.name = row['name'].to_s
+    node.details = row['details'].to_s if row.has_key? 'details'
     node
   }
 end

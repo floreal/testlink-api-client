@@ -58,4 +58,45 @@ describe TestLink::Adapters::NodeAdapter do
     @adapter.response = response
     @adapter.adapt.should == [ node1, node2 ]
   end
+
+  describe "workaround unexpected messages form" do
+    it 'allows to receive hashes pretending do be arrays' do
+      node1 = TestLink::Objects::Node.new
+      node2 = TestLink::Objects::Node.new
+
+      response = {
+          "4" => {
+              "id" => (node1.id = 4).to_s,
+              "details" => node1.details = "<p>First one's child</p>",
+              "name" => node1.name = "First Testsuite's child",
+              "node_type_id" => (node1.type_id = 2).to_s,
+              "node_order"=> (node1.order = 1).to_s,
+              "parent_id" => (node1.parent_id = 2).to_s},
+          "5" => {
+              "id" => (node2.id = 5).to_s,
+              "details" => node2.details = "",
+              "name" => node2.name = "Frist's Second testsuite",
+              "node_type_id" => (node2.type_id = 2).to_s,
+              "node_order" => (node2.order = 2).to_s,
+              "parent_id"=> (node2.parent_id = 2).to_s}}
+
+      @adapter.response = response
+      @adapter.adapt.should == [ node1, node2 ]
+    end
+
+    it 'allows to receive a single node out of an array' do
+      node = TestLink::Objects::Node.new
+
+      response = {
+          "id" => (node.id = 4).to_s,
+          "details" => node.details = "<p>First one's child</p>",
+          "name" => node.name = "First Testsuite's child",
+          "node_type_id" => (node.type_id = 2).to_s,
+          "node_order" => (node.order = 1).to_s,
+          "parent_id" => (node.parent_id = 2).to_s}
+
+      @adapter.response = response
+      @adapter.adapt.should == [ node ]
+    end
+  end
 end
