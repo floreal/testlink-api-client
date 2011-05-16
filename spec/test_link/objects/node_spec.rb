@@ -12,22 +12,34 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+require "test_link/objects/node"
 
-require "test_link/command/get_projects"
-require "test_link/adapters/project_adapter"
-
-describe TestLink::Command::GetProjects do
-  it "is a command" do
-    TestLink::Command::GetProjects.should < TestLink::Command::Base
+describe TestLink::Objects::Node do
+  before :each do
+    @test_suite = TestLink::Objects::Node.new
   end
 
-  it "adds a getProjects method to TestLink::ApiLink" do
-    TestLink::ApiLink.new('http://qa.example.com/', '').should respond_to :getProjects
+  it "has an id" do
+    @test_suite.should provide :id
   end
 
-  describe 'adapter' do
-    it 'is a TestLink::Adapters::ProjectAdapter' do
-      TestLink::ApiLink.adapter_for(TestLink::Command::GetProjects.command_name).should be_instance_of  TestLink::Adapters::ProjectAdapter
-    end
+  it "has a parent_id" do
+    @test_suite.should provide :parent_id
+  end
+  
+  it "has a type_id" do
+    @test_suite.should provide :type_id
+  end
+  
+  it "has a table" do
+    @test_suite.should provide :table
+  end
+
+  it "has a name" do
+    @test_suite.should provide :name
+  end
+
+  it "has an order" do
+    @test_suite.should provide :order
   end
 end

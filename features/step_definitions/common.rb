@@ -18,8 +18,8 @@ Given /^a TestLink Api link for "([^"]*)" with devKey "([^"]*)"$/ do |url, key|
   @tl = TestLink::ApiLink.new url, @key
 end
 
-Given /^a fresh database$/ do
-  reset_db
+Given /^a fresh database "([^"]*)"$/ do |sql_file|
+  reset_db "#{sql_file}.sql"
 end
 
 When /^I use these parameters:$/ do |table|
@@ -52,4 +52,17 @@ Then /^I get status "([^"]*)" for "([^"]*)" with additionalInfo "([^"]*)" and me
   returned_status.operation.should == operation
   returned_status.additional_info.should == info
   returned_status.message.should == message
+end
+
+Then /^I get this node list:$/ do |table|
+  @result.should == table.hashes.map { |row|
+    node = TestLink::Objects::Node.new
+    node.id = row['id'].to_i
+    node.parent_id = row['parent_id'].to_i
+    node.type_id = row['type_id'].to_i
+    node.table = row['table'].to_s
+    node.order = row['order'].to_i
+    node.name = row['name'].to_s
+    node
+  }
 end

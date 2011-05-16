@@ -14,9 +14,3 @@ Autotest.add_hook(:initialize)  do |at|
   end
   nil
 end
-
-Autotest.add_hook(:run_command) do |at|
-  include TestLinkTestModule
-  reset_db
-  nil
-end

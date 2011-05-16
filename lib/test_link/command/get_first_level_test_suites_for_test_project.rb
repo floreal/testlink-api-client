@@ -13,21 +13,17 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require "test_link/command/get_projects"
-require "test_link/adapters/project_adapter"
+require 'test_link/command/base'
+require 'test_link/adapters/node_adapter'
 
-describe TestLink::Command::GetProjects do
-  it "is a command" do
-    TestLink::Command::GetProjects.should < TestLink::Command::Base
-  end
+module TestLink
+  module Command
+    class GetFirstLevelTestSuitesForTestProject < Base
+      remote_method
 
-  it "adds a getProjects method to TestLink::ApiLink" do
-    TestLink::ApiLink.new('http://qa.example.com/', '').should respond_to :getProjects
-  end
+      argument :testprojectid, :mandatory => true
 
-  describe 'adapter' do
-    it 'is a TestLink::Adapters::ProjectAdapter' do
-      TestLink::ApiLink.adapter_for(TestLink::Command::GetProjects.command_name).should be_instance_of  TestLink::Adapters::ProjectAdapter
+      adapt_with Adapters::NodeAdapter
     end
   end
 end

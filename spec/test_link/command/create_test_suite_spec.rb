@@ -17,10 +17,6 @@ require "test_link/command/create_test_suite"
 require "test_link/adapters/status_adapter"
 
 describe TestLink::Command::CreateTestSuite do
-  before :each do
-    @create_test_suite = TestLink::Command::CreateTestSuite.new
-  end
-
   it "is a command" do
     (TestLink::Command::CreateTestSuite < TestLink::Command::Base).should be_true
   end
@@ -36,32 +32,36 @@ describe TestLink::Command::CreateTestSuite do
   end
 
   describe 'arguments' do
+    before :each do
+      @command = TestLink::Command::CreateTestSuite.new
+    end
+
     it 'contain mandatory testprojectid' do
-      @create_test_suite.should provide_mandatory_argument :testprojectid
+      @command.should provide_mandatory_argument :testprojectid
     end
 
     it 'contain mandatory testsuitename' do
-      @create_test_suite.should provide_mandatory_argument :testsuitename
+      @command.should provide_mandatory_argument :testsuitename
     end
 
     it 'contain mandatory details' do
-      @create_test_suite.should provide_mandatory_argument :details
+      @command.should provide_mandatory_argument :details
     end
 
     it 'contain checkduplicatedname' do
-      @create_test_suite.should provide_argument :checkduplicatedname
+      @command.should provide_argument :checkduplicatedname
     end
 
     it 'contain actiononduplicatedname' do
-      @create_test_suite.should provide_argument :actiononduplicatedname
+      @command.should provide_argument :actiononduplicatedname
     end
 
     it 'contain parentid' do
-      @create_test_suite.should provide_argument :parentid
+      @command.should provide_argument :parentid
     end
 
     it 'contain order' do
-      @create_test_suite.should provide_argument :order
+      @command.should provide_argument :order
     end
   end
 end

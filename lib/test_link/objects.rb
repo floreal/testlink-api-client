@@ -16,6 +16,7 @@
 require 'test_link/objects/methods'
 require 'test_link/objects/project'
 require 'test_link/objects/status'
+require 'test_link/objects/node'
 
 module TestLink
   module Objects

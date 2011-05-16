@@ -18,6 +18,7 @@ require 'test_link/command/base'
 require 'test_link/command/definition'
 require 'test_link/command/get_projects'
 require 'test_link/command/create_test_suite'
+require 'test_link/command/get_first_level_test_suites_for_test_project'
 
 module TestLink
   module Command

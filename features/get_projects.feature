@@ -23,8 +23,8 @@ Scenario: Remote API raises an Error
   Then A response error exception is raised with a message "Can not authenticate client: invalid developer key"
   
 Scenario: Getting project list from a real TestLink instance
-  Given a fresh database
-   And a TestLink Api link for "http://qa.localhost" with devKey "720aba7a9dad75eeb87ce253c08f6be5"
+  Given a fresh database "one_project"
+    And a TestLink Api link for "http://qa.localhost" with devKey "720aba7a9dad75eeb87ce253c08f6be5"
   When I call "getProjects"
   Then I get this Project list:
     | id | name           | prefix | notes                              |
@@ -36,12 +36,12 @@ Scenario: Attempting to get project list from a real TestLink instance with a ba
   Then A response error exception is raised with a message "Can not authenticate client: invalid developer key"
 
 Scenario: Developer key is overridden
-  Given a fresh database
-   And a TestLink Api link for "http://qa.localhost" with devKey "__bad_key__"
+  Given a fresh database "one_project"
+    And a TestLink Api link for "http://qa.localhost" with devKey "__bad_key__"
   When I use these parameters:
     | name   | value                            |
     | devKey | 720aba7a9dad75eeb87ce253c08f6be5 |
-  When I call "getProjects"
+   And I call "getProjects"
   Then I get this Project list:
     | id | name           | prefix | notes                              |
     | 1  | Sample Project | SP     | <p>Project for test automation</p> |

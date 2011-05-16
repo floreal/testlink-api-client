@@ -22,7 +22,7 @@ describe TestLink::Adapters::StatusAdapter do
   end
 
   it "inherits from TestLink::Adapters::Base" do
-    (TestLink::Adapters::StatusAdapter < TestLink::Adapters::Base).should be_true
+    TestLink::Adapters::StatusAdapter.should < TestLink::Adapters::Base
   end
 
   it "knows how to adapt a single row of a response" do
