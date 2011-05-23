@@ -13,17 +13,28 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/command/argument'
 require 'test_link/command/base'
-require 'test_link/command/definition'
-require 'test_link/command/get_projects'
-require 'test_link/command/create_test_suite'
-require 'test_link/command/get_first_level_test_suites_for_test_project'
-require 'test_link/command/get_test_suites_for_test_suite'
-require 'test_link/command/get_test_suite_by_id'
-require 'test_link/command/create_test_case'
+require 'test_link/adapters/status_adapter'
 
 module TestLink
   module Command
+    class CreateTestCase < Base
+      remote_method
+
+      argument :testcasename, :mandatory => true
+      argument :testsuiteid, :mandatory => true
+      argument :testprojectid, :mandatory => true
+      argument :authorlogin, :mandatory => true
+      argument :summary, :mandatory => true
+      argument :steps, :mandatory => true
+      argument :preconditions
+      argument :importance
+      argument :execution
+      argument :order
+      argument :checkduplicatedname
+      argument :actiononduplicatedname
+
+      adapt_with Adapters::StatusAdapter
+    end
   end
 end
