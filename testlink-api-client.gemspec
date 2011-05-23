@@ -15,7 +15,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = 'testlink-api-client'
-  spec.version = '0.0.1'
+  spec.version = '0.0.2'
   spec.date = %q{2011-03-22}
   spec.description = <<-EOF
     TestLink API Client allow to use the TestLink Remote API.
