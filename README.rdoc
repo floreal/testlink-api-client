@@ -1,6 +1,10 @@
 == TestLink API Client
 
-This gem provides a endpoint for TestLink Remote API
+This gem provides an endpoint for TestLink Remote API
+
+== Installation
+In a shell, just run:
+  $ gem install teslink-api-client
 
 == How to use it
 
@@ -12,3 +16,6 @@ To use this library you just need to require the gem:
 
  tl = TestLink::ApiLink.new 'http://qa.example.com/', 'f2a479d583cdd97c1434bba69a88e4d8'
  tl.getProjects #Will return an Array of TestLink::Objects::Project
+
+== Bug Reporting
+If you find any bug, please feel free to report it at https://github.com/floreal/testlink-api-client/issues

@@ -16,7 +16,7 @@
 require 'rubygems'
 require 'rake'
 require 'rspec/core/rake_task'
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require 'rake/clean'
 
 require 'cucumber'
@@ -28,9 +28,11 @@ CLOBBER.add('reports')
 
 gemspecs = Gem::Specification.load('testlink-api-client.gemspec')
 
-Rake::GemPackageTask.new(gemspecs) { |pkg| }
+Gem::PackageTask.new(gemspecs) { |pkg| }
 
-RSpec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = ENV['SPEC_FLAGS'] || ''
+end
 
 Cucumber::Rake::Task.new(:features) do |t|
   t.cucumber_opts = ENV['CUKE_FLAGS'] || '--format pretty'
