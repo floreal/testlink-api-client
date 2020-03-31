@@ -22,7 +22,7 @@ describe TestLink::Adapters::ProjectAdapter do
   end
 
   it "inherits from TestLink::Adapters::Base" do
-    TestLink::Adapters::ProjectAdapter.should < TestLink::Adapters::Base
+    expect(TestLink::Adapters::ProjectAdapter).to be < TestLink::Adapters::Base
   end
 
   it "should know how to adapt a single row of a response" do
@@ -41,10 +41,10 @@ describe TestLink::Adapters::ProjectAdapter do
                  "automationEnabled"=>"1",
                  "inventoryEnabled"=>false}}
 
-    @project_adapter.adapt_row(row).should == p_formation
+    expect(@project_adapter.adapt_row(row)).to eq p_formation
   end
 
-  it "should should adapt raw response to Project objects" do
+  it "should adapt raw response to Project objects" do
     p_formation = TestLink::Objects::Project.new
     p_val = TestLink::Objects::Project.new
     response = [
@@ -76,6 +76,6 @@ describe TestLink::Adapters::ProjectAdapter do
                  "inventoryEnabled"=>false}}]
 
     @project_adapter.response = response
-    @project_adapter.adapt.should == [ p_formation, p_val ]
+    expect(@project_adapter.adapt).to eq [ p_formation, p_val ]
   end
 end

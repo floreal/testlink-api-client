@@ -43,7 +43,7 @@ When /^remote call returns an error (\d+?): "(.+?)"$/ do |code, message|
 end
 
 Then /^I get this Project list:$/ do |table|
-  @result.should == table.hashes.map { |row|
+  expect(@result).to eq table.hashes.map { |row|
     project = TestLink::Objects::Project.new
     project.id = row['id'].to_i
     project.notes = row['notes'].to_s

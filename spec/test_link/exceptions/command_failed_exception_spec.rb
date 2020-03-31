@@ -22,7 +22,7 @@ describe TestLink::Exceptions::CommandFailedException do
 
   describe 'message' do
     it 'should be "Empty response"' do
-      @exception.message.should == 'Command has failed: Foo message'
+      expect(@exception.message).to eq 'Command has failed: Foo message'
     end
   end
 end
