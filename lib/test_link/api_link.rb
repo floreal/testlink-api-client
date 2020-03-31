@@ -18,17 +18,22 @@ require 'xmlrpc/client'
 module TestLink
   class ApiLink
     attr_accessor :key
-    attr_reader :client, :url
+    attr_reader :client, :url, :version
     @@remote_methods = {}
     @@adapters = {}
-    def initialize(url, key)
+    def initialize(url, key, version = :v0)
       @url = url
       @key = key
+      @version = version
       @client = XMLRPC::Client.new2 self.api_url
     end
 
     def api_url()
-      @url + '/lib/api/xmlrpc.php'
+      if @version == :v1
+        @url + '/lib/api/xmlrpc/v1/xmlrpc.php'
+      else
+        @url + '/lib/api/xmlrpc.php'
+      end
     end
 
     def self.remote_method(klass)
