@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('autotest-growl')
   spec.add_development_dependency('autotest')
   spec.add_development_dependency('cucumber')
+  spec.add_development_dependency('simplecov')
 end
