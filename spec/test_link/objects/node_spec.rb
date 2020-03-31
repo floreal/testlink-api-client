@@ -20,30 +20,30 @@ describe TestLink::Objects::Node do
   end
 
   it "has an id" do
-    @test_suite.should provide :id
+    expect(@test_suite).to provide :id
   end
 
   it "has a parent_id" do
-    @test_suite.should provide :parent_id
+    expect(@test_suite).to provide :parent_id
   end
   
   it "has a type_id" do
-    @test_suite.should provide :type_id
+    expect(@test_suite).to provide :type_id
   end
   
   it "has a table" do
-    @test_suite.should provide :table
+    expect(@test_suite).to provide :table
   end
 
   it "has a name" do
-    @test_suite.should provide :name
+    expect(@test_suite).to provide :name
   end
 
   it "has an order" do
-    @test_suite.should provide :order
+    expect(@test_suite).to provide :order
   end
 
   it "has details" do
-    @test_suite.should provide :details
+    expect(@test_suite).to provide :details
   end
 end

@@ -22,7 +22,7 @@ describe TestLink::Adapters::NodeAdapter do
   end
 
   it "inherits from TestLink::Adapters::Base" do
-    TestLink::Adapters::NodeAdapter.should < TestLink::Adapters::Base
+    expect(TestLink::Adapters::NodeAdapter).to be < TestLink::Adapters::Base
   end
 
   it "should know how to adapt a single row of a response" do
@@ -34,7 +34,7 @@ describe TestLink::Adapters::NodeAdapter do
             "node_table" => node.table = "testsuites",
             "name" => node.name = "First Testsuite"}
 
-    @adapter.adapt_row(row).should == node
+    expect(@adapter.adapt_row(row)).to eq node
   end
 
   it "should should adapt raw response to Project objects" do
@@ -56,7 +56,7 @@ describe TestLink::Adapters::NodeAdapter do
             "name" => node2.name = "Second Testsuite"}]
 
     @adapter.response = response
-    @adapter.adapt.should == [ node1, node2 ]
+    expect(@adapter.adapt).to eq [ node1, node2 ]
   end
 
   describe "workaround unexpected messages form" do
@@ -81,7 +81,7 @@ describe TestLink::Adapters::NodeAdapter do
               "parent_id"=> (node2.parent_id = 2).to_s}}
 
       @adapter.response = response
-      @adapter.adapt.should == [ node1, node2 ]
+      expect(@adapter.adapt).to eq [ node1, node2 ]
     end
 
     it 'allows to receive a single node out of an array' do
@@ -96,7 +96,7 @@ describe TestLink::Adapters::NodeAdapter do
           "parent_id" => (node.parent_id = 2).to_s}
 
       @adapter.response = response
-      @adapter.adapt.should == [ node ]
+      expect(@adapter.adapt).to eq [ node ]
     end
   end
 end

@@ -23,7 +23,7 @@ describe TestLink::Adapters::Base do
   end
 
   it "manages responses" do
-    @adapter.should provide :response
+    expect(@adapter).to provide :response
   end
 
   it "raises an exception when an error code is detected in the response" do
@@ -45,7 +45,7 @@ describe TestLink::Adapters::Base do
     def @adapter.adapt_row row
     end
     @adapter.response = [{'name' => 'a'}, {'name' => 'b'}]
-    @adapter.response.each { |row| @adapter.should_receive(:adapt_row).with(row) }
+    @adapter.response.each { |row| allow(@adapter).to receive(:adapt_row).with(row) }
     @adapter.adapt
   end
 

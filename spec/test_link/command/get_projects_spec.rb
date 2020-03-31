@@ -18,16 +18,16 @@ require "test_link/adapters/project_adapter"
 
 describe TestLink::Command::GetProjects do
   it "is a command" do
-    TestLink::Command::GetProjects.should < TestLink::Command::Base
+    expect(TestLink::Command::GetProjects).to be < TestLink::Command::Base
   end
 
   it "adds a getProjects method to TestLink::ApiLink" do
-    TestLink::ApiLink.new('http://qa.example.com/', '').should respond_to :getProjects
+    expect(TestLink::ApiLink.new('http://qa.example.com/', '')).to respond_to :getProjects
   end
 
   describe 'adapter' do
     it 'is a TestLink::Adapters::ProjectAdapter' do
-      TestLink::ApiLink.adapter_for(TestLink::Command::GetProjects.command_name).should be_instance_of  TestLink::Adapters::ProjectAdapter
+      expect(TestLink::ApiLink.adapter_for(TestLink::Command::GetProjects.command_name)).to be_instance_of  TestLink::Adapters::ProjectAdapter
     end
   end
 end

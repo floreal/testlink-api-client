@@ -22,7 +22,7 @@ describe TestLink::Adapters::StatusAdapter do
   end
 
   it "inherits from TestLink::Adapters::Base" do
-    TestLink::Adapters::StatusAdapter.should < TestLink::Adapters::Base
+    expect(TestLink::Adapters::StatusAdapter).to be < TestLink::Adapters::Base
   end
 
   it "knows how to adapt a single row of a response" do
@@ -33,7 +33,7 @@ describe TestLink::Adapters::StatusAdapter do
         "operation" => status.operation = "createTestSuite",
         "additionalInfo" => status.additional_info = "some more infos",
         "message" => status.message = "ok"}
-    @status_adapter.adapt_row(row).should == status
+    expect(@status_adapter.adapt_row(row)).to eq status
   end
 
   it "should should adapt raw response to Status objects" do
@@ -46,6 +46,6 @@ describe TestLink::Adapters::StatusAdapter do
         "message" => status.message = "ok"}]
 
     @status_adapter.response = response
-    @status_adapter.adapt.should == [ status ]
+    expect(@status_adapter.adapt).to eq [ status ]
   end
 end

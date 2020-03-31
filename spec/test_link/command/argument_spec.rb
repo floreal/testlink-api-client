@@ -22,22 +22,22 @@ describe TestLink::Command::Argument do
   end
 
   it 'has a default value' do
-    @argument.should respond_to :default
+    expect(@argument).to respond_to :default
   end
 
   it 'may be mandatory' do
-    @argument.should respond_to :mandatory?
+    expect(@argument).to respond_to :mandatory?
   end
 
   describe 'default state' do
     describe 'default value' do
       it 'is nil' do
-        @argument.default.should be_nil
+        expect(@argument.default).to be_nil
       end
     end
 
     it 'is not mandatory' do
-      @argument.mandatory?.should be_false
+      expect(@argument.mandatory?).to be_falsy
     end
   end
 end
