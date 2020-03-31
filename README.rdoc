@@ -19,3 +19,13 @@ To use this library you just need to require the gem:
 
 == Bug Reporting
 If you find any bug, please feel free to report it at https://github.com/floreal/testlink-api-client/issues
+
+== Contribution
+
+1. Fork on Github  
+2. `gem install rspec`  
+3. `gem install autotest-growl`  
+4. `gem install autotest`  
+5. `gem install cucumber`  
+6. `rspec spec`  
+7. In forked repo, create feature branch  
