@@ -21,6 +21,7 @@ describe TestLink::ApiLink do
     @url = 'http://qa.example.com'
     @key = '__dev_key__'
     @link = TestLink::ApiLink.new @url, @key
+    @link_v1 = TestLink::ApiLink.new @url, @key, :v1
   end
 
   it 'has a server url' do
@@ -33,6 +34,12 @@ describe TestLink::ApiLink do
 
   it 'has an API url' do
     expect(@link.api_url).to eq(@url + '/lib/api/xmlrpc.php')
+    expect(@link_v1.api_url).to eq(@url + '/lib/api/xmlrpc/v1/xmlrpc.php')
+  end
+
+  it 'has and API version' do
+    expect(@link.version).to eq(:v0)
+    expect(@link_v1.version).to eq(:v1)
   end
 
   it 'holds a XMLRPC client' do
