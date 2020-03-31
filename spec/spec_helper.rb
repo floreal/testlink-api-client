@@ -13,6 +13,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with testlink-api-client.  If not, see <http://www.gnu.org/licenses/>.
 require 'rspec/expectations'
+require 'simplecov'
+SimpleCov.start do
+  enable_coverage :branch
+end
+
 module RSpec::Matchers
   def attribute_provided? object, attribute
     assignment = (attribute.to_s + '=').to_sym
