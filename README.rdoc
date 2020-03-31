@@ -4,7 +4,7 @@ This gem provides an endpoint for TestLink Remote API
 
 == Installation
 In a shell, just run:
-  $ gem install teslink-api-client
+  $ gem install testlink-api-client
 
 == How to use it
 
