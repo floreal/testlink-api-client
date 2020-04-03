@@ -17,6 +17,8 @@ require 'test_link/api_link'
 require 'test_link/command'
 require 'test_link/adapters'
 require 'test_link/exceptions'
+require 'test_link/objects'
+require 'test_link/enums'
 
 module TestLink
 end
