@@ -1,0 +1,44 @@
+#    This file is part of testlink-api-client.
+#
+#    testlink-api-client is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    testlink-api-client is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with testlink-api-client.  If not, see <http://www.gnu.org/licenses/>.
+
+require "test_link/command/get_latest_build_for_test_plan"
+require "test_link/adapters/status_adapter"
+
+describe TestLink::Command::GetLatestBuildForTestPlan do
+  it "is a command" do
+    expect(TestLink::Command::GetLatestBuildForTestPlan).to be < TestLink::Command::Base
+  end
+
+  it "adds a GetLatestBuildForTestPlan method to TestLink::ApiLink" do
+    expect(TestLink::ApiLink.new('http://qa.example.com/', '')).to respond_to :getLatestBuildForTestPlan
+  end
+
+  describe 'adapter' do
+    it 'is a TestLink::Adapters::NodeAdapter' do
+      expect(TestLink::ApiLink.adapter_for(TestLink::Command::GetLatestBuildForTestPlan.command_name)).to be_instance_of  TestLink::Adapters::NodeAdapter
+    end
+  end
+
+  describe 'arguments' do
+    before :each do
+      @command = TestLink::Command::GetLatestBuildForTestPlan.new
+    end
+
+    it 'contain mandatory testplanid' do
+      expect(@command).to provide_mandatory_argument :testplanid
+    end
+
+  end
+end
