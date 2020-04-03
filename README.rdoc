@@ -30,3 +30,8 @@ If you find any bug, please feel free to report it at https://github.com/floreal
 6. `gem install simplecov`  
 7. `rspec spec`  
 8. In forked repo, create feature branch  
+
+== Build
+
+gem build testlink-api-client.gem
+gem install ./testlink-api-client-version.gem
