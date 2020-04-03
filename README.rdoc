@@ -4,7 +4,7 @@ This gem provides an endpoint for TestLink Remote API
 
 == Installation
 In a shell, just run:
-  $ gem install teslink-api-client
+  $ gem install testlink-api-client
 
 == How to use it
 
@@ -19,3 +19,19 @@ To use this library you just need to require the gem:
 
 == Bug Reporting
 If you find any bug, please feel free to report it at https://github.com/floreal/testlink-api-client/issues
+
+== Contribution
+
+1. Fork on Github  
+2. `gem install rspec`  
+3. `gem install autotest-growl`  
+4. `gem install autotest`  
+5. `gem install cucumber`  
+6. `gem install simplecov`  
+7. `rspec spec`  
+8. In forked repo, create feature branch  
+
+== Build
+
+gem build testlink-api-client.gem
+gem install ./testlink-api-client-version.gem

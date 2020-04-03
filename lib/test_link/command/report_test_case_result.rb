@@ -13,12 +13,27 @@
 #    You should have received a copy of the GNU General Public License
 #    along with testlink-api-client.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/api_link'
-require 'test_link/command'
-require 'test_link/adapters'
-require 'test_link/exceptions'
-require 'test_link/objects'
-require 'test_link/enums'
+require 'test_link/command/base'
+require 'test_link/adapters/status_adapter'
 
 module TestLink
+  module Command
+    class ReportTCResult < Base
+      remote_method
+
+      argument :testcaseid, :mandatory => true
+      argument :testplanid, :mandatory => true
+      argument :status, :mandatory => true
+      argument :buildid
+      argument :buildname
+      argument :notes
+      argument :guess
+      argument :bugid
+      argument :platformid
+      argument :platformname
+      argument :customfields
+
+      adapt_with Adapters::StatusAdapter
+    end
+  end
 end

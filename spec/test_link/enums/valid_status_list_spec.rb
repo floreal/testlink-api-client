@@ -13,12 +13,22 @@
 #    You should have received a copy of the GNU General Public License
 #    along with testlink-api-client.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/api_link'
-require 'test_link/command'
-require 'test_link/adapters'
-require 'test_link/exceptions'
-require 'test_link/objects'
-require 'test_link/enums'
+require 'test_link/enums/valid_status_list'
 
-module TestLink
+describe TestLink::Enums::ValidStatusList do
+
+  before :each do
+    @status = TestLink::Enums::ValidStatusList
+  end
+
+  it "encoding values" do
+    expect(@status::FAILED).to eq('f') 
+    expect(@status::BLOCKED).to eq('b')
+    expect(@status::PASSED).to eq('p')
+    expect(@status::NOT_RUN).to eq('n')
+    expect(@status::NOT_AVAILABLE).to eq('x')
+    expect(@status::UNKNOWN).to eq('u')
+    expect(@status::ALL).to eq('a')
+  end
+
 end

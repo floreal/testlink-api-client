@@ -18,16 +18,16 @@ require 'test_link/adapters/node_adapter'
 
 describe TestLink::Command::GetFirstLevelTestSuitesForTestProject do
   it "is a command" do
-    TestLink::Command::GetFirstLevelTestSuitesForTestProject.should < TestLink::Command::Base
+    expect(TestLink::Command::GetFirstLevelTestSuitesForTestProject).to be < TestLink::Command::Base
   end
 
   it "adds a getFirstLevelTestSuitesForTestProject method to TestLink::ApiLink" do
-    TestLink::ApiLink.new('http://qa.example.com/', '').should respond_to :getFirstLevelTestSuitesForTestProject
+    expect(TestLink::ApiLink.new('http://qa.example.com/', '')).to respond_to :getFirstLevelTestSuitesForTestProject
   end
 
   describe 'adapter' do
     it 'is a TestLink::Adapters::NodeAdapter' do
-      TestLink::ApiLink.adapter_for(TestLink::Command::GetFirstLevelTestSuitesForTestProject.command_name).should be_instance_of  TestLink::Adapters::NodeAdapter
+      expect(TestLink::ApiLink.adapter_for(TestLink::Command::GetFirstLevelTestSuitesForTestProject.command_name)).to be_instance_of  TestLink::Adapters::NodeAdapter
     end
   end
 
@@ -37,7 +37,7 @@ describe TestLink::Command::GetFirstLevelTestSuitesForTestProject do
     end
 
     it 'contain mandatory testprojectid' do
-      @command.should provide_mandatory_argument :testprojectid
+      expect(@command).to provide_mandatory_argument :testprojectid
     end
   end
 end

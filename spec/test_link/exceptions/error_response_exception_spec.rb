@@ -21,10 +21,10 @@ describe TestLink::Exceptions::ErrorResponseException do
   end
 
   it "has a code" do
-    @exception.should provide :code
+    expect(@exception).to provide :code
   end
 
   it "has a message" do
-    @exception.should respond_to :message
+    expect(@exception).to respond_to :message
   end
 end

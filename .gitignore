@@ -1,3 +1,5 @@
 .idea
 pkg
 reports
+coverage
+*.gem

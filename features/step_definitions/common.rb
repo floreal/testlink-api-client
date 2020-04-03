@@ -39,23 +39,23 @@ end
 
 Then /^A response error exception is raised with a message "([^"]*)"$/ do |message|
   fail "Received a non error response \"#{@result}\" when expecting an error message: #{message}" if @error.nil?
-  @error.class.should < TestLink::Exceptions::Exception
-  @error.message.should == message
+  expect(@error.class).to be < TestLink::Exceptions::Exception
+  expect(@error.message).to eq message
 end
 
 Then /^I get status "([^"]*)" for "([^"]*)" with additionalInfo "([^"]*)" and message "([^"]*)"$/ do |status, operation, info, message|
   fail "Received an error \"#{@error}\" when expecting a success" unless @error.nil?
-  @result.count.should == 1
+  expect(@result.count).to eq 1
   returned_status = @result.first
-  returned_status.should be_instance_of TestLink::Objects::Status
-  returned_status.status.should == string2boolean(status)
-  returned_status.operation.should == operation
-  returned_status.additional_info.should == info
-  returned_status.message.should == message
+  expect(returned_status).to be_instance_of TestLink::Objects::Status
+  expect(returned_status.status).to eq string2boolean(status)
+  expect(returned_status.operation).to eq operation
+  expect(returned_status.additional_info).to eq info
+  expect(returned_status.message).to eq message
 end
 
 Then /^I get this node list:$/ do |table|
-  @result.should == table.hashes.map { |row|
+  expect(@result).to eq table.hashes.map { |row|
     node = TestLink::Objects::Node.new
     node.id = row['id'].to_i if
     node.parent_id = row['parent_id'].to_i

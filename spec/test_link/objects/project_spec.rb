@@ -22,18 +22,18 @@ describe TestLink::Objects::Project do
   end
 
   it "has an id" do
-    @project.should provide :id
+    expect(@project).to provide :id
   end
 
   it "has a prefix" do
-    @project.should provide :prefix
+    expect(@project).to provide :prefix
   end
 
   it "has a name" do
-    @project.should provide :name
+    expect(@project).to provide :name
   end
 
   it "has notes" do
-    @project.should provide :notes
+    expect(@project).to provide :notes
   end
 end

@@ -15,8 +15,8 @@
 
 Gem::Specification.new do |spec|
   spec.name = 'testlink-api-client'
-  spec.version = '0.0.2'
-  spec.date = %q{2011-03-22}
+  spec.version = '0.0.3'
+  spec.date = %q{2020-04-01}
   spec.description = <<-EOF
     TestLink API Client allow to use the TestLink Remote API.
   EOF
@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('autotest-growl')
   spec.add_development_dependency('autotest')
   spec.add_development_dependency('cucumber')
+  spec.add_development_dependency('simplecov')
 end

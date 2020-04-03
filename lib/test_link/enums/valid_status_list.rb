@@ -13,21 +13,16 @@
 #    You should have received a copy of the GNU General Public License
 #    along with testlink-api-client.  If not, see <http://www.gnu.org/licenses/>.
 
-require "test_link/command/get_projects"
-require "test_link/adapters/project_adapter"
-
-describe TestLink::Command::GetProjects do
-  it "is a command" do
-    TestLink::Command::GetProjects.should < TestLink::Command::Base
-  end
-
-  it "adds a getProjects method to TestLink::ApiLink" do
-    TestLink::ApiLink.new('http://qa.example.com/', '').should respond_to :getProjects
-  end
-
-  describe 'adapter' do
-    it 'is a TestLink::Adapters::ProjectAdapter' do
-      TestLink::ApiLink.adapter_for(TestLink::Command::GetProjects.command_name).should be_instance_of  TestLink::Adapters::ProjectAdapter
+module TestLink
+  module Enums
+    module ValidStatusList
+      FAILED = 'f'
+      BLOCKED = 'b'
+      PASSED = 'p'
+      NOT_RUN = 'n'
+      NOT_AVAILABLE = 'x'
+      UNKNOWN = 'u'
+      ALL = 'a'
     end
   end
 end

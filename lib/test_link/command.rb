@@ -22,6 +22,10 @@ require 'test_link/command/get_first_level_test_suites_for_test_project'
 require 'test_link/command/get_test_suites_for_test_suite'
 require 'test_link/command/get_test_suite_by_id'
 require 'test_link/command/create_test_case'
+require 'test_link/command/report_test_case_result'
+require 'test_link/command/get_test_cases_for_test_suite'
+require 'test_link/command/get_project_test_plans'
+require 'test_link/command/get_latest_build_for_test_plan'
 
 module TestLink
   module Command

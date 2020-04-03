@@ -22,22 +22,22 @@ describe TestLink::Objects::Status do
   end
 
   it "has an id" do
-    @status.should provide :id
+    expect(@status).to provide :id
   end
 
   it "has a status" do
-    @status.should provide :status
+    expect(@status).to provide :status
   end
 
   it "has a message" do
-    @status.should provide :message
+    expect(@status).to provide :message
   end
 
   it "has an additional info" do
-    @status.should provide :additional_info
+    expect(@status).to provide :additional_info
   end
 
   it "refers to an operation" do
-    @status.should provide :operation
+    expect(@status).to provide :operation
   end
 end

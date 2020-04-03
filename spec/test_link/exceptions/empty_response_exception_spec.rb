@@ -22,7 +22,7 @@ describe TestLink::Exceptions::EmptyResponseException do
 
   describe 'message' do
     it 'should be "Empty response"' do
-      @exception.message.should == 'Response is empty'
+      expect(@exception.message).to eq 'Response is empty'
     end
   end
 end

@@ -13,12 +13,9 @@
 #    You should have received a copy of the GNU General Public License
 #    along with testlink-api-client.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/api_link'
-require 'test_link/command'
-require 'test_link/adapters'
-require 'test_link/exceptions'
-require 'test_link/objects'
-require 'test_link/enums'
+require 'test_link/enums/valid_status_list'
 
 module TestLink
+  module Enums
+  end
 end

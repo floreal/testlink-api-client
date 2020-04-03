@@ -13,12 +13,19 @@
 #    You should have received a copy of the GNU General Public License
 #    along with testlink-api-client.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'test_link/api_link'
-require 'test_link/command'
-require 'test_link/adapters'
-require 'test_link/exceptions'
-require 'test_link/objects'
-require 'test_link/enums'
+require 'test_link/command/base'
+require 'test_link/adapters/node_adapter'
 
 module TestLink
+  module Command
+    class GetTestCasesForTestSuite < Base
+      remote_method
+
+      argument :testsuiteid, :mandatory => true
+      argument :deep
+      argument :details
+
+      adapt_with Adapters::NodeAdapter
+    end
+  end
 end
