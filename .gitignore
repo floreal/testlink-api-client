@@ -2,3 +2,4 @@
 pkg
 reports
 coverage
+*.gem
