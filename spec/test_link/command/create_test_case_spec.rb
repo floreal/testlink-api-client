@@ -21,7 +21,7 @@ describe TestLink::Command::CreateTestCase do
     expect(TestLink::Command::CreateTestCase).to be < TestLink::Command::Base
   end
 
-  it "adds a createTestSuite method to TestLink::ApiLink" do
+  it "adds a createTestCase method to TestLink::ApiLink" do
     expect(TestLink::ApiLink.new('http://qa.example.com/', '')).to respond_to :createTestCase
   end
 
